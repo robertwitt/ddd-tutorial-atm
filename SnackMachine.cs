@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static ddd_tutorial_atm.Logic.Money;
 
 namespace ddd_tutorial_atm.Logic
@@ -39,20 +40,36 @@ namespace ddd_tutorial_atm.Logic
       MoneyInTransaction = 0;
     }
 
+    public string CanBuySnack(int position)
+    {
+      SnackPile snackPile = GetSnackPile(position);
+
+      if (snackPile.Quantity == 0)
+      {
+        return "The snack pile is empty";
+      }
+      if (MoneyInTransaction < snackPile.Price)
+      {
+        return "Not enough money";
+      }
+      if (!MoneyInside.CanAllocate(MoneyInTransaction - snackPile.Price))
+      {
+        return "Not enough change";
+      }
+      return string.Empty;
+    }
+
     public void BuySnack(int position)
     {
-      Slot slot = GetSlot(position);
-      if (slot.SnackPile.Price > MoneyInTransaction)
+      if (CanBuySnack(position) != string.Empty)
       {
         throw new InvalidOperationException();
       }
+
+      Slot slot = GetSlot(position);
       slot.SnackPile = slot.SnackPile.SubtractOne();
 
       Money change = MoneyInside.Allocate(MoneyInTransaction - slot.SnackPile.Price);
-      if (change.Amount < MoneyInTransaction - slot.SnackPile.Price)
-      {
-        throw new InvalidOperationException();
-      }
       MoneyInside -= change;
       MoneyInTransaction = 0;
     }
@@ -65,6 +82,19 @@ namespace ddd_tutorial_atm.Logic
     public void LoadMoney(Money money)
     {
       MoneyInside += money;
+    }
+
+    public SnackPile GetSnackPile(int position)
+    {
+      return GetSlot(position).SnackPile;
+    }
+
+    public IReadOnlyList<SnackPile> GetAllSnackPiles()
+    {
+      return Slots
+        .OrderBy(x => x.Position)
+        .Select(x => x.SnackPile)
+        .ToList();
     }
 
     private Slot GetSlot(int position)

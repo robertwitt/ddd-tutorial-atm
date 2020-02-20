@@ -10,7 +10,7 @@ namespace ddd_tutorial_atm.Logic
     {
       this.SnackMachine = snackMachine;
       this.Position = position;
-      this.SnackPile = new SnackPile(null, 0, 0m);
+      this.SnackPile = new SnackPile(Snack.None, 0, 0m);
     }
   }
 }
