@@ -1,6 +1,7 @@
 using System;
+using ddd_tutorial_atm.Logic.Common;
 
-namespace ddd_tutorial_atm.Logic
+namespace ddd_tutorial_atm.Logic.SnackMachines
 {
   public sealed class SnackPile : ValueObject<SnackPile>
   {

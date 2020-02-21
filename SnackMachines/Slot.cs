@@ -1,4 +1,6 @@
-namespace ddd_tutorial_atm.Logic
+using ddd_tutorial_atm.Logic.Common;
+
+namespace ddd_tutorial_atm.Logic.SnackMachines
 {
   public sealed class Slot : Entity
   {

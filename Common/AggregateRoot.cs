@@ -1,4 +1,4 @@
-namespace ddd_tutorial_atm.Logic
+namespace ddd_tutorial_atm.Logic.Common
 {
   public abstract class AggregateRoot : Entity { }
 }

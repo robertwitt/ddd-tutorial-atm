@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static ddd_tutorial_atm.Logic.Money;
+using ddd_tutorial_atm.Logic.Common;
+using ddd_tutorial_atm.Logic.SharedKernel;
+using static ddd_tutorial_atm.Logic.SharedKernel.Money;
 
-namespace ddd_tutorial_atm.Logic
+namespace ddd_tutorial_atm.Logic.SnackMachines
 {
   public sealed class SnackMachine : AggregateRoot
   {
