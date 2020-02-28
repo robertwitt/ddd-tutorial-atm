@@ -40,6 +40,8 @@ namespace ddd_tutorial_atm.Logic.Atms
 
       decimal amountWithCommission = CalculateAmountWithCommission(amount);
       MoneyCharged += amountWithCommission;
+
+      AddDomainEvent(new BalanceChangedEvent(amountWithCommission));
     }
 
     private decimal CalculateAmountWithCommission(decimal amount)
